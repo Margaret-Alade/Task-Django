@@ -1,0 +1,23 @@
+# Виртуальное окружение
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Django
+*.sqlite3
+db.sqlite3
+/media/
+/staticfiles/
+
+# Редакторы и ОС
+.vscode/
+.idea/
+.DS_Store
+
+# Переменные окружения
+.env
