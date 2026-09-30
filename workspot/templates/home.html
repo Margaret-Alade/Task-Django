@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>Workspot</h1>
+    <p>
+        Система бронирования рабочих мест. Здесь вы можете посмотреть
+        сотрудников, их навыки и закреплённые рабочие места.
+    </p>
+</section>
+
+<section>
+    <h2>Наши сотрудники</h2>
+    <div class="cards">
+        {% for employee in employees %}
+            {% include "employees/_card.html" %}
+        {% empty %}
+            <p>Пока нет ни одного сотрудника.</p>
+        {% endfor %}
+    </div>
+    <a href="{% url 'employees:list' %}">Все сотрудники →</a>
+</section>
+{% endblock %}

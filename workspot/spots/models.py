@@ -10,5 +10,9 @@ class Spot(models.Model):
         Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name="spot"
     )
 
+    class Meta:
+        verbose_name = "Место"
+        verbose_name_plural = "Места"
+
     def __str__(self):
         return f"Стол {self.number}"

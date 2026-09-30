@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Сотрудники</h1>
+<div class="cards">
+    {% for employee in employees %}
+        {% include "employees/_card.html" %}
+    {% empty %}
+        <p>Пока нет ни одного сотрудника.</p>
+    {% endfor %}
+</div>
+{% endblock %}

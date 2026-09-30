@@ -1,6 +1,17 @@
 from django.contrib import admin
 
-from .models import Employee, EmployeeSkill, Skill
+from .models import Employee, EmployeeImage, EmployeeSkill, Skill
+
+
+class EmployeeSkillInline(admin.TabularInline):
+    model = EmployeeSkill
+    extra = 1
+
+
+class EmployeeImageInline(admin.TabularInline):
+    model = EmployeeImage
+    extra = 1
+    fields = ("image", "order")
 
 
 @admin.register(Skill)
@@ -19,6 +30,7 @@ class EmployeeAdmin(admin.ModelAdmin):
         "patronymic",
     )
     list_filter = ("gender",)
+    inlines = [EmployeeSkillInline, EmployeeImageInline]
 
 
 @admin.register(EmployeeSkill)

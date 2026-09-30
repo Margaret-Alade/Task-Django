@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="employee-detail">
+    <h1>{{ employee.user.get_full_name|default:employee.user.username }}</h1>
+
+    <dl>
+        <dt>Имя</dt>
+        <dd>{{ employee.user.first_name|default:"—" }}</dd>
+
+        <dt>Фамилия</dt>
+        <dd>{{ employee.user.last_name|default:"—" }}</dd>
+
+        <dt>Отчество</dt>
+        <dd>{{ employee.patronymic|default:"—" }}</dd>
+
+        <dt>Пол</dt>
+        <dd>{{ employee.get_gender_display|default:"—" }}</dd>
+    </dl>
+
+    <h2>Навыки</h2>
+    <ul>
+        {% for es in employee.skill_levels.all %}
+            <li>
+                <strong>{{ es.skill.name }}</strong> — уровень {{ es.level }}/10
+            </li>
+        {% empty %}
+            <li>Навыки не указаны</li>
+        {% endfor %}
+    </ul>
+
+    {% if employee.description %}
+        <h2>Описание</h2>
+        <div>{{ employee.description|safe }}</div>
+    {% endif %}
+
+    <p><a href="{% url 'employees:list' %}">← Ко всем сотрудникам</a></p>
+</article>
+{% endblock %}

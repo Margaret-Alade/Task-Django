@@ -1,0 +1,13 @@
+<article class="card">
+    <a href="{% url 'employees:detail' employee.pk %}">
+        <h3>{{ employee.user.get_full_name|default:employee.user.username }}</h3>
+        <p><strong>Навыки:</strong></p>
+        <ul>
+            {% for es in employee.skill_levels.all %}
+                <li>{{ es.skill.name }} — {{ es.level }}/10</li>
+            {% empty %}
+                <li>Навыки не указаны</li>
+            {% endfor %}
+        </ul>
+    </a>
+</article>
