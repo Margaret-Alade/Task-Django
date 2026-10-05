@@ -1,8 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <article class="employee-detail">
     <h1>{{ employee.user.get_full_name|default:employee.user.username }}</h1>
+
+    {% if main_image %}
+        <img src="{{ main_image.image.url }}" alt="{{ employee }}" class="employee-detail__main-image">
+    {% else %}
+        <img src="{% static 'img/no-photo.png' %}" alt="Нет фото" class="employee-detail__main-image">
+    {% endif %}
 
     <dl>
         <dt>Имя</dt>
@@ -16,6 +23,21 @@
 
         <dt>Пол</dt>
         <dd>{{ employee.get_gender_display|default:"—" }}</dd>
+
+        <dt>Профессия</dt>
+        <dd>{{ employee.get_profession_display|default:"—" }}</dd>
+
+        <dt>Стаж в компании</dt>
+        <dd>
+            {% if employee.experience_days is not None %}
+                {{ employee.experience_days }} дн.
+            {% else %}
+                —
+            {% endif %}
+        </dd>
+
+        <dt>Номер стола</dt>
+        <dd>{{ employee.spot.number|default:"Не закреплён" }}</dd>
     </dl>
 
     <h2>Навыки</h2>
@@ -28,6 +50,15 @@
             <li>Навыки не указаны</li>
         {% endfor %}
     </ul>
+
+    {% if gallery_images %}
+        <h2>Галерея</h2>
+        <div class="gallery">
+            {% for img in gallery_images %}
+                <img src="{{ img.image.url }}" alt="{{ employee }} — изображение #{{ img.order }}" class="gallery__image">
+            {% endfor %}
+        </div>
+    {% endif %}
 
     {% if employee.description %}
         <h2>Описание</h2>

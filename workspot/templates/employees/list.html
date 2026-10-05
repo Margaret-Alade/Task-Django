@@ -2,11 +2,30 @@
 
 {% block content %}
 <h1>Сотрудники</h1>
+
 <div class="cards">
-    {% for employee in employees %}
+    {% for employee in page_obj %}
         {% include "employees/_card.html" %}
     {% empty %}
         <p>Пока нет ни одного сотрудника.</p>
     {% endfor %}
 </div>
+
+{% if page_obj.paginator.num_pages > 1 %}
+    <nav class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">« Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}">← Назад</a>
+        {% endif %}
+
+        <span class="pagination__current">
+            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Вперёд →</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя »</a>
+        {% endif %}
+    </nav>
+{% endif %}
 {% endblock %}

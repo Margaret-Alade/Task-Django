@@ -7,6 +7,9 @@
         Система бронирования рабочих мест. Здесь вы можете посмотреть
         сотрудников, их навыки и закреплённые рабочие места.
     </p>
+    <p class="hero__counter">
+        <strong>Всего сотрудников в базе:</strong> {{ total_employees }}
+    </p>
 </section>
 
 <section>
@@ -15,7 +18,7 @@
         {% for employee in employees %}
             {% include "employees/_card.html" %}
         {% empty %}
-            <p>Пока нет ни одного сотрудника.</p>
+            <p>Пока нет ни одного сотрудника с указанной датой приёма.</p>
         {% endfor %}
     </div>
     <a href="{% url 'employees:list' %}">Все сотрудники →</a>

@@ -1,18 +1,118 @@
+/* ===== Карточки (главная и список) ===== */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1rem;
 }
+
 .card {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 1rem;
     transition: box-shadow 0.2s;
 }
+
 .card:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+
 .card a {
     text-decoration: none;
     color: inherit;
+}
+
+.card__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.card__experience {
+    color: #555;
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+}
+
+/* ===== Пагинация (список) ===== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.pagination a {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s;
+}
+
+.pagination a:hover {
+    background-color: #f5f5f5;
+}
+
+.pagination__current {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+/* ===== Detail-страница сотрудника ===== */
+.employee-detail {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.employee-detail__main-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.employee-detail dl {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0.5rem 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.employee-detail dt {
+    font-weight: bold;
+    color: #555;
+}
+
+.employee-detail dd {
+    margin: 0;
+}
+
+/* ===== Галерея (detail) ===== */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.gallery__image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+}
+
+.hero__counter {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #333;
 }

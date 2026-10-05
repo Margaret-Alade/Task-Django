@@ -1,4 +1,5 @@
 import os
+from datetime import date
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -18,8 +19,19 @@ class Skill(models.Model):
 
 
 class Employee(models.Model):
+    class Profession(models.TextChoices):
+        TESTER = "QA", "Тестировщик"
+        BACKEND = "BE", "Бэкенд-разработчик"
+        FRONTEND = "FE", "Фронтенд-разработчик"
+
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="employee_profile"
+    )
+    profession = models.CharField(
+        "Профессия",
+        max_length=2,
+        choices=Profession.choices,
+        blank=True,
     )
     gender = models.CharField(
         max_length=1, choices=[("M", "Мужской"), ("F", "Женский")], blank=True
@@ -29,10 +41,22 @@ class Employee(models.Model):
         Skill, through="EmployeeSkill", related_name="employees"
     )
     description = models.TextField("Описание", blank=True)
+    hire_date = models.DateField(
+        "Дата приёма на работу",
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = "Сотрудник"
         verbose_name_plural = "Сотрудники"
+
+    @property
+    def experience_days(self):
+        """Стаж работы в компании в днях."""
+        if not self.hire_date:
+            return None
+        return (date.today() - self.hire_date).days
 
     def __str__(self):
         return self.user.get_full_name() or self.user.username

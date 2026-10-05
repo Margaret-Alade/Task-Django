@@ -1,6 +1,22 @@
+{% load static %}
 <article class="card">
     <a href="{% url 'employees:detail' employee.pk %}">
+        {% with first_image=employee.images.first %}
+            {% if first_image %}
+                <img src="{{ first_image.image.url }}" alt="{{ employee }}" class="card__image">
+            {% else %}
+                <img src="{% static 'img/no-photo.png' %}" alt="Нет фото" class="card__image">
+            {% endif %}
+        {% endwith %}
+
         <h3>{{ employee.user.get_full_name|default:employee.user.username }}</h3>
+
+        {% if employee.experience_days is not None %}
+            <p class="card__experience"><strong>Стаж:</strong> {{ employee.experience_days }} дн.</p>
+        {% else %}
+            <p class="card__experience"><strong>Стаж:</strong> не указан</p>
+        {% endif %}
+
         <p><strong>Навыки:</strong></p>
         <ul>
             {% for es in employee.skill_levels.all %}
